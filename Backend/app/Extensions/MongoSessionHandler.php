@@ -33,6 +33,11 @@ class MongoSessionHandler implements SessionHandlerInterface
 
     public function write($sessionId, $data)
     {
+        if (!$sessionId) {
+            // Generate a new session ID if it's null or invalid
+            $sessionId = bin2hex(random_bytes(16));
+        }
+    
         $this->collection->updateOne(
             ['_id' => $sessionId],
             ['$set' => ['data' => $data, 'last_accessed' => new \MongoDB\BSON\UTCDateTime()]],
@@ -40,6 +45,7 @@ class MongoSessionHandler implements SessionHandlerInterface
         );
         return true;
     }
+    
 
     public function destroy($sessionId)
     {
