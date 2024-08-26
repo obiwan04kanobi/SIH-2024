@@ -4,7 +4,7 @@
 2) Soumya Pandey
 3) Pranay Gupta
 4) Nitish kumar
-5) Ankit Vikas 
+5) Shivam Mishra 
 6) Mayank Pant
 
 ## Problem Statement:
