@@ -7,6 +7,7 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\SchemeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DocumentUploadController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -27,4 +28,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('send.otp');
     Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('verify.otp');
 });
+
+// Document upload to s3
+
+// Route::post('/upload-document', [DocumentUploadController::class, 'uploadDocument'])->middleware('auth');
+Route::post('/upload-document', [DocumentUploadController::class, 'uploadDocument']);
 

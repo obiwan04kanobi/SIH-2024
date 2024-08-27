@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form with Navigation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .nav {
+      width: 30%;
+      background: linear-gradient(45deg, rgb(11, 63, 3), rgb(9, 10, 9));
+      padding: 20px;
+    }
+
+    .nav ul {
+      list-style-type: none;
+    }
+
+    .nav ul li {
+      margin-bottom: 15px;
+    }
+
+    .nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      padding: 10px;
+      display: block;
+      background-color: rgb(255, 255, 255);
+      border-radius: 5px;
+    }
+
+    .nav ul li a.active,
+    .nav ul li a:hover {
+      background-color: #5a5f66;
+      color: #fff;
+    }
+
+    .content {
+      width: 70%;
+      padding: 20px;
+      background: linear-gradient(45deg, rgb(197, 247, 197), rgba(128, 128, 128, 0.633));
+    }
+
+    .content h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <ul>
+        <li><a href="#" class="active" onclick="showSection('personal-details')">Personal Details</a></li>
+        <li><a href="#" onclick="showSection('education-details')">Education Details</a></li>
+        <li><a href="#" onclick="showSection('upload-documents')">Upload Documents</a></li>
+        <li><a href="#" onclick="showSection('review-form')">Review Form</a></li>
+        <li><a href="#" onclick="showSection('submit-form')">Submit Form</a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+
+      <!--Personal Details-->
+
+      <div id="personal-details" class="section">
+        <h2>Personal Details</h2>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="changed-name">Changed Name</label>
+          <input type="text" id="changed-name" name="changed-name">
+        </div>
+
+        <div class="form-group">
+          <label for="fatherName">Father's Name</label>
+          <input type="text" id="fathername" name="fathername">
+        </div>
+
+        <div class="form-group">
+          <label for="mothername">Mother's Name</label>
+          <input type="mothername" id="mothername" name="mothername">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+        </div>
+
+        <div class="form-group">
+          <label for="contact">Contact Number</label>
+          <input type="number" id="contact" name="contact">
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob">
+        </div>
+
+        <div class="form-group">
+          <label for="permanent-address">Permanent Address</label>
+          <input type="text" id="permanent-address" name="permanent-address">
+        </div>
+
+        <div class="form-group">
+          <label for="correspondence-address">Correspondence Addres</label>
+          <input type="text" id="correspondence-address" name="correspondence-address">
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" onchange="handleGenderChange()">
+            <option value="" disabled selected>Select your gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <input type="text" id="otherGender" name="otherGender" class="hidden-input" placeholder="Please specify">
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="" disabled selected>Select your category</option>
+            <option value="General">General</option>
+            <option value="SC">SC</option>
+            <option value="ST">ST</option>
+            <option value="OBC">OBC</option>
+          </select>
+        </div>
+      </div>
+
+
+      <!--Education Details-->
+
+      <div id="education-details" class="section hidden">
+        <h2>Education Details</h2>
+
+        <div class="form-group">
+          <label for="qualifying-education">Qualifying Education</label>
+          <select id="qualifying-education" name="qualifying-education" required>
+            <option value="" disabled selected>Select your education</option>
+            <option value="12">12</option>
+            <option value="diploma">Diploma</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="qualifying-board">Qualifying Education Board</label>
+          <select id="qualifying-board" name="qualifying-board" required>
+            <option value="" disabled selected>Select your board</option>
+            <option value="CBSE">CBSE</option>
+            <option value="JKBOSE">JKBOSE</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="roll-number">Roll Number</label>
+          <input type="text" id="roll-number" name="roll-number">
+        </div>
+
+        <div class="form-group">
+          <label for="percentage">Percentage</label>
+          <input type="number" id="percentage" min="0" max="100" name="percentage">
+        </div>
+        <div class="form-group">
+          <label for="cgpa">CGPA</label>
+          <input type="number" id="cgpa" min="0" max="10" name="cgpa">
+        </div>
+        <div class="form-group">
+          <label for="qualifying-education-status">Qualifying Education Status</label>
+          <select id="qualifying-education-status" name="qualifying-education-status" required>
+            <option value="" disabled selected>Select Status</option>
+            <option value="pass">Paased</option>
+            <option value="apperaing">Appearing</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="passing-year">Passing Year</label>
+          <select id="passing-year" name="passing-year" required></select>
+        </div>
+
+      </div>
+
+      <!--Upload Documents-->
+      <div id="upload-documents" class="section hidden">
+        <h2>Upload Documents</h2>
+
+        <div class="form-group">
+          <label for="aadhar-card">Aadhar Card</label>
+          <input type="file" id="aadhar-card" name="aadhar-card">
+        </div>
+
+        <div class="form-group">
+          <label for="marksheet-10">10th Marksheet</label>
+          <input type="file" id="marksheet-10" name="marksheet-10">
+        </div>
+
+        <div class="form-group">
+          <label for="marksheet-12">12th Marksheet</label>
+          <input type="file" id="marksheet-12" name="marksheet-12">
+        </div>
+
+        <div class="form-group">
+          <label for="domicile">Domicile</label>
+          <input type="file" id="domicile" name="domicile">
+        </div>
+
+        <div class="form-group">
+          <label for="caste-certificate">10th Marksheet</label>
+          <input type="file" id="caster-certificate" name="caste-certificate">
+        </div>
+
+        <div class="form-group">
+          <label for="income-certificate">Income Certificate</label>
+          <input type="file" id="income-certificate" name="income-certificate">
+        </div>
+
+        <div class="form-group">
+          <label for="pwd-certificate">PWD Certificate (if required)</label>
+          <input type="file" id="pwd-certificate" name="pwd-certificate">
+        </div>
+      </div>
+
+      <!--Review Form-->
+
+      <div id="review-form" class="section hidden">
+        <h2>Review Form</h2>
+      </div>
+
+      <!-- Submit Form-->
+
+      <div id="submit-form" class="section hidden">
+        <h2>Submit Form</h2>
+        <button type="submit">Submit</button>
+      </div>
+
+    </div>
+
+    <!--Passing Year-->
+
+    <script>
+      const currentYear = new Date().getFullYear();
+
+      const passingYearSelect = document.getElementById('passing-year');
+
+      for (let i = 0; i < 3; i++) {
+        const option = document.createElement('option');
+        option.value = currentYear - i;
+        option.textContent = currentYear - i;
+        passingYearSelect.appendChild(option);
+      }
+    </script>
+
+    <script>
+      function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+          section.classList.add('hidden');
+        });
+
+        const selectedSection = document.getElementById(sectionId);
+        selectedSection.classList.remove('hidden');
+
+        const navLinks = document.querySelectorAll('.nav ul li a');
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+        });
+        event.target.classList.add('active');
+      }
+    </script>
+
+    <script>
+      function handleGenderChange() {
+        var genderSelect = document.getElementById("gender");
+        var otherGenderInput = document.getElementById("otherGender");
+
+        if (genderSelect.value === "Other") {
+          otherGenderInput.style.display = "inline-block";
+          otherGenderInput.setAttribute('required', true);
+        } else {
+          otherGenderInput.style.display = "none";
+          otherGenderInput.removeAttribute('required');
+          otherGenderInput.value = "";
+        }
+      }
+    </script>
+
+
+</body>
+
+</html>

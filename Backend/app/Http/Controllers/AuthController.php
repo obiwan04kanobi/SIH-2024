@@ -21,14 +21,10 @@ class AuthController extends Controller
             'phone' => 'required|string',
             'password' => 'required|string',
         ]);
-    
+
         $otp = rand(100000, 999999); // Generate a 6-digit OTP
         session(['otp' => $otp, 'otp_email' => $request->email]); // Store OTP in session
-    
-        \Log::info('OTP in session after sending: ' . session('otp'));
-        \Log::info('Email in session after sending: ' . session('otp_email'));
-        
-    
+
         try {
             // Send OTP to user's email
             Mail::raw("Your OTP is: $otp", function($message) use ($request) {
@@ -36,14 +32,13 @@ class AuthController extends Controller
                     ->subject('Your OTP Code');
                 $message->from('kisanseva13@gmail.com', 'PM-USP YOJANA 2024-25');
             });
-    
+
             return response()->json(['success' => true, 'message' => 'OTP sent to your email']);
         } catch (\Exception $e) {
-            \Log::error('OTP sending failed: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'Failed to send OTP']);
         }
     }
-     
+
     public function verifyOtp(Request $request)
     {
         $request->validate([
@@ -53,14 +48,10 @@ class AuthController extends Controller
             'password' => 'required|string',
             'otp' => 'required|numeric'
         ]);
-    
+
         $sessionOtp = session('otp');
         $sessionEmail = session('otp_email');
-        \Log::info('OTP in session during verification: ' . $sessionOtp);
-        \Log::info('Email in session during verification: ' . $sessionEmail);
-        \Log::info('OTP in request: ' . $request->otp);
-        \Log::info('Email in request: ' . $request->email);
-    
+
         if ($sessionOtp && $sessionEmail === $request->email && $sessionOtp == $request->otp) {
             // Proceed with user registration
             $user = new Student([
@@ -70,17 +61,17 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $user->save();
-    
+
             // Clear OTP session data
             session()->forget(['otp', 'otp_email']);
-    
+
             // Redirect to login page with a success message
             return redirect('/login')->with('success', 'User registered successfully. Please login.');
         }
-    
+
         return response()->json(['success' => false, 'message' => 'Invalid OTP']);
     }
-        
+
     public function login(Request $request)
     {
         $request->validate([
@@ -107,5 +98,11 @@ class AuthController extends Controller
     {
         Session::forget('student'); // Clear the student from session
         return redirect('/')->with('success', 'Logout successful');
+    }
+
+    // Helper function to get the currently logged-in user
+    public static function getAuthenticatedUser()
+    {
+        return Session::get('student');
     }
 }

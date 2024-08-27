@@ -14,17 +14,29 @@ Route::get('/about', function () {
 
 Route::get('/login', function () {
     return view('sign-in');
-})->name('login');
+})->name('loginForm');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', function () {
     return view('sign-up');
 })->name('register');
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/upload', function () {
+    return view('upload');
+});
 
-Route::middleware('auth.custom')->group(function () {
-    Route::get('/protected', function () {
-        // Protected route content
-    });
+Route::get('/dash', function () {
+    return view('dashboard');
+});
+
+Route::get('/apply', function () {
+    return view('form');
+});
+
+Route::get('/test-session', function () {
+    session(['key' => 'value']);
+    return session('key'); // should return 'value'
 });

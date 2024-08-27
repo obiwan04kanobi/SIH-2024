@@ -3,6 +3,10 @@
 @section('content')
     <div class="bg-gray-100 font-sans">
 
+        @if (Auth::check())
+            {{ dd(Auth::user()) }} <!-- Debugging the user object -->
+        @endif
+
 
         <!-- Hero Section with Swiper.js Carousel -->
         <div class="relative w-full h-screen overflow-hidden">
@@ -49,11 +53,10 @@
             <div class="max-w-7xl mx-auto flex justify-center space-x-4">
                 <a href="/register"
                     class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">Register</a>
-                <a href="#"
-                    class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition duration-300">Apply</a>
-                <a href="#"
-                    class="bg-yellow-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-yellow-700 transition duration-300">Check
-                    Status</a>
+                <a href="/dash"
+                    class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition duration-300">Dashboard</a>
+                <a href="/apply"
+                    class="bg-yellow-600 text-white px-6 py-3 rounded-lg shadow-lg bg-purple-600 transition duration-300">Apply</a>
             </div>
         </div>
 
