@@ -12,6 +12,10 @@ Route::get('about', function () {
 })->name('about');  // Add a name for the root route
 
 
+Route::get('contact', function () {
+    return view('contact');
+})->name('contact');  // Add a name for the root route
+
 
 
 Route::get('/dashboard', function () {

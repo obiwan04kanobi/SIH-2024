@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <a href="#"
+                    <a href="/contact"
                         class="text-white hover:bg-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out">Contact</a>
                 </div>
 
