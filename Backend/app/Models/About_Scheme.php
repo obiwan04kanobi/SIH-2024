@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class About_Scheme extends Model
 {
-    protected $connection = 'mongodb';
-    protected $collection = 'about_scheme'; // Specify your collection name
+    use HasFactory;
 
+    // The table associated with the model
+    protected $table = 'about_schemes';
+
+    // The attributes that are mass assignable
     protected $fillable = [
-        'desc',
-        'url', // Field to store URL
+        'description',
+        'url',
     ];
+
+    // Optionally, specify any additional properties or methods
 }

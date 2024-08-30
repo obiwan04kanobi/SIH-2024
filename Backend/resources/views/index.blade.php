@@ -162,8 +162,9 @@
                 url: 'http://localhost:8000/api/schemes',
                 method: 'GET',
                 success: function(response) {
+                    console.log(response); // Debugging the response
                     var schemesContainer = $('#schemes');
-                    schemesContainer.empty(); // Clear the container
+                    schemesContainer.empty();
 
                     $.each(response, function(index, scheme) {
                         var schemeElement = $('<p></p>')
@@ -178,7 +179,6 @@
                     console.error('Error fetching schemes:', error);
                 }
             });
-
         });
     </script>
 @endsection

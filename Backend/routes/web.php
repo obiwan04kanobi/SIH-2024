@@ -1,42 +1,27 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Middleware\Authenticated;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');  // Add a name for the root route
 
-Route::get('/about', function () {
+Route::get('about', function () {
     return view('about');
-});
+})->name('about');  // Add a name for the root route
 
-Route::get('/login', function () {
-    return view('sign-in');
-})->name('loginForm');
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', function () {
-    return view('sign-up');
-})->name('register');
-
-Route::get('/upload', function () {
-    return view('upload');
-});
-
-Route::get('/dash', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/apply', function () {
-    return view('form');
-});
-
-Route::get('/test-session', function () {
-    session(['key' => 'value']);
-    return session('key'); // should return 'value'
-});
+require __DIR__.'/auth.php';
