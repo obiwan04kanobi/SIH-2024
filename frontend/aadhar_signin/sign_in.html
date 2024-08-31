@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhaar Number Form</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px; /* Increased max width */
+            padding: 30px; /* Increased padding */
+            text-align: center;
+        }
+
+        h1 {
+            color: #0072ff;
+            margin-bottom: 20px;
+            font-size: 28px; /* Increased font size */
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 30px; /* Increased margin */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px; /* Increased margin */
+            font-size: 18px; /* Increased font size */
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%; /* Full width */
+            padding: 15px; /* Increased padding */
+            border: 2px solid #0072ff;
+            border-radius: 5px;
+            font-size: 18px; /* Increased font size */
+            color: #333;
+            box-sizing: border-box; /* Ensures proper box sizing */
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.3);
+        }
+
+        .submit-btn {
+            background: #28a745; /* Green color */
+            color: #fff;
+            padding: 15px 30px; /* Increased padding */
+            border: none;
+            border-radius: 5px;
+            font-size: 20px; /* Increased font size */
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%; /* Full width */
+        }
+
+        .submit-btn:hover {
+            background: #218838;
+        }
+
+        .submit-btn:active {
+            background: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign In to your account</h1>
+        <div class="form-group">
+            <label for="aadhar">Enter your Aadhaar number:</label>
+            <input type="text" id="aadhar" name="aadhar" placeholder="Enter Aadhaar Number" maxlength="12">
+        </div>
+        <button class="submit-btn" onclick="handleSubmit()">Next</button>
+    </div>
+
+    <script>
+        function handleSubmit() {
+            const aadharInput = document.getElementById('aadhar').value.trim();
+            if (aadharInput.length === 12 && !isNaN(aadharInput)) {
+                localStorage.setItem('aadharNumber', aadharInput);
+                alert('Aadhaar number submitted successfully!');
+                // Proceed with next steps
+            } else {
+                alert('Please enter a valid 12-digit Aadhaar number.');
+            }
+        }
+    </script>
+</body>
+</html>

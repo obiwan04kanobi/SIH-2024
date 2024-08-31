@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,16 +26,17 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         try {
+            Log::info('User email: ' . $request->email);
+            Log::info('User password: ' . $request->password);  // Note: Password is not stored in logs in a real application
+            
             $request->authenticate();
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard', absolute: false));
         } catch (\Exception $e) {
-            // Log the error message for debugging
-            \Log::error('Login error: ' . $e->getMessage());
+            Log::error('Login error: ' . $e->getMessage());
             return back()->withErrors(['email' => 'Invalid login credentials.']);
         }
     }
-    
 
     /**
      * Destroy an authenticated session.

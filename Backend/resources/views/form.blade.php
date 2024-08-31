@@ -10,29 +10,34 @@
             display: none;
         }
 
-        .active {
-            @apply bg-blue-500 text-white;
+        .nav-item.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .nav-item {
+            background-color: #e5e7eb;
+        }
+
+        .nav-item:hover {
+            background-color: #3b82f6;
+            color: white;
         }
     </style>
     <div class="flex justify-center items-center min-h-screen">
         <div class="container mx-auto p-6 bg-white shadow-md rounded-lg flex">
             <div class="nav w-1/3 p-4 bg-gray-100 rounded-l-lg">
                 <ul>
-                    <li><a href="#"
-                            class="block p-4 mb-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-                            onclick="showSection('personal-details')">Personal Details</a></li>
-                    <li><a href="#"
-                            class="block p-4 mb-4 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-lg transition"
-                            onclick="showSection('education-details')">Education Details</a></li>
-                    <li><a href="#"
-                            class="block p-4 mb-4 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-lg transition"
-                            onclick="showSection('upload-documents')">Upload Documents</a></li>
-                    <li><a href="#"
-                            class="block p-4 mb-4 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-lg transition"
-                            onclick="showSection('review-form')">Review Form</a></li>
-                    <li><a href="#"
-                            class="block p-4 mb-4 bg-gray-200 hover:bg-blue-500 hover:text-white rounded-lg transition"
-                            onclick="showSection('submit-form')">Submit Form</a></li>
+                    <li><a href="#" id="nav-personal-details" class="block p-4 mb-4 nav-item rounded-lg"
+                            onclick="showSection('personal-details', this)">Personal Details</a></li>
+                    <li><a href="#" id="nav-education-details" class="block p-4 mb-4 nav-item rounded-lg"
+                            onclick="showSection('education-details', this)">Education Details</a></li>
+                    <li><a href="#" id="nav-upload-documents" class="block p-4 mb-4 nav-item rounded-lg"
+                            onclick="showSection('upload-documents', this)">Upload Documents</a></li>
+                    <li><a href="#" id="nav-review-form" class="block p-4 mb-4 nav-item rounded-lg"
+                            onclick="showSection('review-form', this)">Review Form</a></li>
+                    <li><a href="#" id="nav-submit-form" class="block p-4 mb-4 nav-item rounded-lg"
+                            onclick="showSection('submit-form', this)">Submit Form</a></li>
                 </ul>
             </div>
 
@@ -91,7 +96,7 @@
                     </div>
 
                     <div class="form-group mb-4 flex items-center">
-                        <input type="checkbox" id="same-address" class="mr-2">
+                        <input type="checkbox" id="same-address" class="mr-2" onclick="fillCorrespondenceAddress()">
                         <label for="same-address" class="text-lg">Same as Permanent Address</label>
                     </div>
 
@@ -176,20 +181,19 @@
                         <select id="qualifying-education-status" name="qualifying-education-status" required
                             class="w-full p-3 border border-gray-300 rounded-lg">
                             <option value="" disabled selected>Select status</option>
-                            <option value="Passed">Passed</option>
-                            <option value="Appeared">Appeared</option>
-                            <option value="Compartment">Compartment</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fail">Fail</option>
                         </select>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="passed-year" class="block text-lg mb-2">Passed Year</label>
-                        <input type="text" id="passed-year" name="passed-year"
+                        <input type="number" id="passed-year" name="passed-year"
                             class="w-full p-3 border border-gray-300 rounded-lg">
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="compartment-paper" class="block text-lg mb-2">Compartment Paper Name</label>
+                        <label for="compartment-paper" class="block text-lg mb-2">Compartment Paper</label>
                         <input type="text" id="compartment-paper" name="compartment-paper"
                             class="w-full p-3 border border-gray-300 rounded-lg">
                     </div>
@@ -200,43 +204,81 @@
                     <h2 class="text-2xl font-semibold mb-6">Upload Documents</h2>
 
                     <div class="form-group mb-4">
-                        <label for="10th-marksheet" class="block text-lg mb-2">10th Marksheet</label>
-                        <input type="file" id="10th-marksheet" name="10th-marksheet"
+                        <label for="10th Marksheet" class="block text-lg mb-2">10th Marksheet</label>
+                        <input type="file" id="10th Marksheet" name="10th Marksheet"
                             class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="12th-marksheet" class="block text-lg mb-2">12th Marksheet</label>
-                        <input type="file" id="12th-marksheet" name="12th-marksheet"
+                        <label for="12th Marksheet" class="block text-lg mb-2">12th Marksheet</label>
+                        <input type="file" id="12th Marksheet" name="12th Marksheet"
                             class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
+                    </div>
+
+                    {{-- <div class="form-group mb-4">
+                        <label for="aadhar-photo" class="block text-lg mb-2">Aadhaar Card Photo</label>
+                        <input type="file" id="aadhar-photo" name="aadhar-photo"
+                            class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
+                    </div> --}}
+
+                    <div class="form-group mb-4">
+                        <label for="income-certificate" class="block text-lg mb-2">Income Certificate</label>
+                        <input type="file" id="income-certificate" name="income-certificate"
+                            class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="category-certificate" class="block text-lg mb-2">Category Certificate</label>
-                        <input type="file" id="category-certificate" name="category-certificate"
+                        <label for="domicile" class="block text-lg mb-2">Domicile Certificate</label>
+                        <input type="file" id="domicile" name="domicile"
                             class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="domicile-certificate" class="block text-lg mb-2">Domicile Certificate</label>
-                        <input type="file" id="domicile-certificate" name="domicile-certificate"
+                        <label for="caste-certificate" class="block text-lg mb-2">Caste Certificate</label>
+                        <input type="file" id="caste-certificate" name="caste-certificate"
                             class="w-full p-3 border border-gray-300 rounded-lg">
+                        <button type="button"
+                            class="mt-2 p-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                            Verify
+                        </button>
                     </div>
                 </div>
 
                 <!--Review Form-->
                 <div id="review-form" class="section hidden">
                     <h2 class="text-2xl font-semibold mb-6">Review Form</h2>
-                    <div id="review-content">
-                        <!-- Filled data will be displayed here -->
+                    <div id="review-content" class="p-4 bg-gray-100 rounded-lg">
+                        <!-- Review content will be populated here -->
                     </div>
                 </div>
 
                 <!--Submit Form-->
                 <div id="submit-form" class="section hidden">
                     <h2 class="text-2xl font-semibold mb-6">Submit Form</h2>
-                    <button
-                        class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition">Submit</button>
+                    <button type="submit"
+                        class="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+                        Submit
+                    </button>
                 </div>
 
             </div>
@@ -244,32 +286,46 @@
 
         <script>
             const sections = document.querySelectorAll('.section');
-            const reviewContent = document.getElementById('review-content');
 
-            function showSection(sectionId) {
-                sections.forEach(section => section.classList.add('hidden'));
-                document.getElementById(sectionId).classList.remove('hidden');
+            function showSection(sectionId, navItem) {
+                sections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    if (item === navItem) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
 
                 // Populate review content
                 if (sectionId === 'review-form') {
+                    const reviewContent = document.getElementById('review-content');
                     reviewContent.innerHTML = `
-              <p><strong>Name:</strong> ${document.getElementById('name').value}</p>
-              <p><strong>Father's Name:</strong> ${document.getElementById('fathername').value}</p>
-              <p><strong>Mother's Name:</strong> ${document.getElementById('mothername').value}</p>
-              <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
-              <p><strong>Contact:</strong> ${document.getElementById('contact').value}</p>
-              <p><strong>DOB:</strong> ${document.getElementById('dob').value}</p>
-              <p><strong>Gender:</strong> ${document.getElementById('gender').value}</p>
-              <p><strong>Category:</strong> ${document.getElementById('category').value}</p>
-              <p><strong>Qualifying Education:</strong> ${document.getElementById('qualifying-education').value}</p>
-              <p><strong>Board:</strong> ${document.getElementById('qualifying-board').value}</p>
-              <p><strong>Roll No:</strong> ${document.getElementById('roll-number').value}</p>
-              <p><strong>Percentage:</strong> ${document.getElementById('percentage').value}</p>
-              <p><strong>CGPA:</strong> ${document.getElementById('cgpa').value}</p>
-              <p><strong>Status:</strong> ${document.getElementById('qualifying-education-status').value}</p>
-              <p><strong>Passed Year:</strong> ${document.getElementById('passed-year').value}</p>
-              <p><strong>Compartment Paper:</strong> ${document.getElementById('compartment-paper').value}</p>
-            `;
+                    <p><strong>Name:</strong> ${document.getElementById('name').value}</p>
+                    <p><strong>Father's Name:</strong> ${document.getElementById('fathername').value}</p>
+                    <p><strong>Mother's Name:</strong> ${document.getElementById('mothername').value}</p>
+                    <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+                    <p><strong>Contact:</strong> ${document.getElementById('contact').value}</p>
+                    <p><strong>DOB:</strong> ${document.getElementById('dob').value}</p>
+                    <p><strong>Gender:</strong> ${document.getElementById('gender').value}</p>
+                    <p><strong>Category:</strong> ${document.getElementById('category').value}</p>
+                    <p><strong>Qualifying Education:</strong> ${document.getElementById('qualifying-education').value}</p>
+                    <p><strong>Board:</strong> ${document.getElementById('qualifying-board').value}</p>
+                    <p><strong>Roll No:</strong> ${document.getElementById('roll-number').value}</p>
+                    <p><strong>Percentage:</strong> ${document.getElementById('percentage').value}</p>
+                    <p><strong>CGPA:</strong> ${document.getElementById('cgpa').value}</p>
+                    <p><strong>Status:</strong> ${document.getElementById('qualifying-education-status').value}</p>
+                    <p><strong>Passed Year:</strong> ${document.getElementById('passed-year').value}</p>
+                    <p><strong>Compartment Paper:</strong> ${document.getElementById('compartment-paper').value}</p>
+                `;
                 }
             }
 
@@ -283,20 +339,18 @@
                     otherGenderInput.classList.add('hidden-input');
                 }
             }
-        </script>
-        <script>
-            document.getElementById('same-address').addEventListener('change', function() {
-                const permanentAddress = document.getElementById('permanent-address').value;
-                const correspondenceAddress = document.getElementById('correspondence-address');
 
-                if (this.checked) {
+            function fillCorrespondenceAddress() {
+                const isChecked = document.getElementById("same-address").checked;
+                const permanentAddress = document.getElementById("permanent-address").value;
+                const correspondenceAddress = document.getElementById("correspondence-address");
+
+                if (isChecked) {
                     correspondenceAddress.value = permanentAddress;
-                    correspondenceAddress.setAttribute('readonly', true);
                 } else {
-                    correspondenceAddress.value = '';
-                    correspondenceAddress.removeAttribute('readonly');
+                    correspondenceAddress.value = "";
                 }
-            });
+            }
         </script>
     </div>
 @endsection

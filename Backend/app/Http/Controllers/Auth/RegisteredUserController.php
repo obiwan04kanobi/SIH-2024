@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;  // Add this line
-
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\RedirectResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -54,30 +53,32 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:students,email'],
-            // 'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:20'],
             'password' => ['required', Rules\Password::defaults()],
             'otp' => ['required'],
         ]);
-    
+
         // Check OTP
         if ($request->otp != Session::get('otp')) {
             return back()->withErrors(['otp' => 'Invalid OTP.']);
         }
-    
+
         // Create user
         $user = Student::create([
             'name' => $request->name,
-            'email' => $request->email,
-            // 'phone' => $request->phone,
+            'email' => strtolower($request->email),  // Convert to lowercase
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
-    
+
+        // Log the stored password hash (Note: Do not log plain passwords or sensitive data in real applications)
+        Log::info('Stored Password Hash: ' . $user->password);
+
         // Clear OTP from session
         Session::forget('otp');
-    
+
         Auth::login($user);
-    
+
         return redirect()->route('home');
     }
-    
 }

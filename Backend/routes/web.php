@@ -11,11 +11,21 @@ Route::get('about', function () {
     return view('about');
 })->name('about');  // Add a name for the root route
 
-
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');  // Add a name for the root route
 
+Route::get('dash', function () {
+    return view('dashboard');
+})->name('dash');  // Add a name for the root route
+
+Route::get('apply', function () {
+    return view('form');
+})->name('form');  // Add a name for the root route
+
+Route::get('upload', function () {
+    return view('upload');
+})->name('upload');  // No authentication required
 
 
 Route::get('/dashboard', function () {

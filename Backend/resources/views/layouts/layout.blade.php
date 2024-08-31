@@ -81,7 +81,7 @@
                             </button>
                         </form>
                     @else
-                        <!-- User is not logged in, show Sign Up and Sign In buttons -->
+                        {{-- <!-- User is not logged in, show Sign Up and Sign In buttons -->
                         <div x-data="{ open: false }" class="relative">
                             <button @click="open = !open"
                                 class="text-white hover:bg-blue-600 px-4 py-2 rounded-lg transition duration-300 ease-in-out flex items-center">
@@ -98,7 +98,7 @@
                                         Up</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div x-data="{ open: false }" class="relative">
                             <button @click="open = !open"
