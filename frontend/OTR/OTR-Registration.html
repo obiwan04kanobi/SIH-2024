@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMSSS Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #4b5aff, #b2bbf1);
+        }
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-input {
+            border: 1px solid #d1d5db;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus {
+            border-color: #0052cc;
+            box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <form class="w-full max-w-4xl mx-auto form-section" id="registrationForm" onsubmit="handleFormSubmit(event)">
+        <h1 class="text-2xl font-semibold mb-4 text-center bg-blue-600 text-white py-2">One-Time Registration</h1>
+        <h2 class="text-xl font-semibold mb-4">Personal Details</h2>
+
+        <!-- Aadhaar Card Section -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">1. Do you have an Aadhaar Card? *</label>
+            <div class="flex items-center mb-2">
+                <input type="radio" id="aadhaarYes" name="aadhaarCard" value="yes" class="mr-2" required onclick="toggleAadhaarSection()">
+                <label for="aadhaarYes" class="mr-4">Yes</label>
+                <input type="radio" id="aadhaarNo" name="aadhaarCard" value="no" class="mr-2" required onclick="toggleAadhaarSection(); showPopup()">
+                <label for="aadhaarNo">No</label>
+            </div>
+            <div id="aadhaarSection">
+                <input type="text" placeholder="Aadhaar Card Number" class="form-input w-full p-2 mb-2" required>
+                <input type="text" placeholder="Verify Aadhaar Card Number" class="form-input w-full p-2" required>
+            </div>
+        </div>
+
+        <!-- Candidate Name -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">2. Candidate Name (As per Matriculation Certificate) *</label>
+            <input type="text" placeholder="Candidate Name" class="form-input w-full p-2 mb-2" required>
+            <input type="text" placeholder="Verify Candidate Name" class="form-input w-full p-2" required>
+        </div>
+
+        <!-- Name Change -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">3. Have you ever changed Name? *</label>
+            <div class="flex items-center mb-2">
+                <input type="radio" id="nameChangeYes" name="nameChange" value="yes" class="mr-2" required onclick="toggleNameChangeSection()">
+                <label for="nameChangeYes" class="mr-4">Yes</label>
+                <input type="radio" id="nameChangeNo" name="nameChange" value="no" class="mr-2" required onclick="toggleNameChangeSection()">
+                <label for="nameChangeNo">No</label>
+            </div>
+            <div id="nameChangeSection">
+                <input type="text" placeholder="New Name / Changed Name" class="form-input w-full p-2 mb-2">
+                <input type="text" placeholder="Verify New Name/Changed Name" class="form-input w-full p-2">
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">4. Gender *</label>
+            <select class="form-input w-full p-2 mb-2" required>
+                <option value="">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">5. Date Of Birth (DD-MM-YYYY) *</label>
+            <input type="date" class="form-input w-full p-2 mb-2" required>
+        </div>
+
+        <!-- Parent Names -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">6. Father's Name *</label>
+            <input type="text" placeholder="Father's Name" class="form-input w-full p-2 mb-2" required>
+            <input type="text" placeholder="Verify Father's Name" class="form-input w-full p-2" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">7. Mother's Name *</label>
+            <input type="text" placeholder="Mother's Name" class="form-input w-full p-2 mb-2" required>
+            <input type="text" placeholder="Verify Mother's Name" class="form-input w-full p-2" required>
+        </div>
+
+        <!-- Matriculation Details -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">8. Matriculation (10th class) Education Board *</label>
+            <select class="form-input w-full p-2 mb-2" required>
+                <option value="">Select</option>
+                <option>CBSE</option>
+                <option>State Board</option>
+            </select>
+            <input type="text" placeholder="Roll Number" class="form-input w-full p-2 mb-2" required>
+            <input type="text" placeholder="Verify Roll Number" class="form-input w-full p-2" required>
+        </div>
+
+        <!-- Year of Passing -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">9. Year of Passing *</label>
+            <select class="form-input w-full p-2 mb-2" required>
+                <option value="">Select</option>
+                <option>2019</option>
+                <option>2020</option>
+                <option>2021</option>
+                <option>2022</option>
+            </select>
+        </div>
+
+        <!-- Mobile and Email -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">10. Candidate's Mobile Number *</label>
+            <input type="tel" placeholder="Mobile Number" class="form-input w-full p-2 mb-2" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">11. Candidate's Email ID *</label>
+            <input type="email" placeholder="Email ID" class="form-input w-full p-2 mb-2" required>
+        </div>
+
+        <!-- I Agree Condition -->
+        <div class="mb-4">
+            <input type="checkbox" id="agree" class="mr-2" required>
+            <label for="agree" class="text-gray-700">I agree to the terms and conditions *</label>
+        </div>
+
+        <!-- Save & Next Button -->
+        <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+    </form>
+
+    <script>
+        function toggleAadhaarSection() {
+            const aadhaarYes = document.getElementById('aadhaarYes');
+            const aadhaarSection = document.getElementById('aadhaarSection');
+
+            aadhaarSection.style.display = aadhaarYes.checked ? 'block' : 'none';
+        }
+
+        function showPopup() {
+            alert('Aadhaar card is mandatory for OTR.');
+        }
+
+        function toggleNameChangeSection() {
+            const nameChangeYes = document.getElementById('nameChangeYes');
+            const nameChangeSection = document.getElementById('nameChangeSection');
+
+            nameChangeSection.style.display = nameChangeYes.checked ? 'block' : 'none';
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Your registration is successful! Redirecting to Account Center...');
+            window.location.href = 'account-center.html'; // Redirect to the account center page
+        }
+
+        // Initial setup: hide/show Aadhaar and Name Change sections based on selection
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleAadhaarSection();
+            toggleNameChangeSection();
+        });
+    </script>
+</body>
+</html>
