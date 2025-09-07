@@ -11,7 +11,7 @@
 The Prime Minister's Special Scholarship Scheme (PMSSS) aims to digitize the scholarship process by developing an online system for document submission and verification, replacing traditional paperwork. This system will allow students to securely upload their documents through a user-friendly portal, with real-time tracking and notifications. The documents will be verified by the SAG Bureau and automatically forwarded to the Finance Bureau for payment processing. The solution will enhance efficiency, reduce processing time, and ensure data privacy, all while eliminating the need for hard copies.
 
 
-## How to install dependencies:
+##  How to install dependencies:
 
 ### Step 1: Ensure Composer is Installed
 First, make sure Composer is installed on your system. You can check if Composer is installed by running:
